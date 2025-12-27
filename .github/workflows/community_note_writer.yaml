@@ -41,7 +41,7 @@ jobs:
           X_ACCESS_TOKEN_SECRET:    ${{ secrets.X_ACCESS_TOKEN_SECRET }}
       
       - name: Run bot
-        run: cd template-api-note-writer && uv run src/main.py --num-posts 10 --dry-run --test-mode
+        run: cd template-api-note-writer && uv run src/main.py --num-posts 10 --test-mode
         # Read the environment variables from the github repository.
         # Store under Settings --> Secrets and variables --> Actions
         env:
