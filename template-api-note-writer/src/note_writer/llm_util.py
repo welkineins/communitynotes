@@ -19,7 +19,7 @@ def _make_request(payload: dict):
     return response.json()["choices"][0]["message"]["content"]
 
 
-def get_grok_response(prompt: str, temperature: float = 0.8, model: str = "grok-3-latest"):
+def get_grok_response(prompt: str, temperature: float = 0.8, model: str = "grok-4-1-fast-reasoning"):
     payload = {
         "messages": [
             {
@@ -65,11 +65,12 @@ def grok_describe_image(image_url: str, temperature: float = 0.01, model: str = 
     return _make_request(payload)
 
 
-def get_grok_live_search_response(prompt: str, temperature: float = 0.8, model= "grok-3-latest"):
+def get_grok_live_search_response(prompt: str, temperature: float = 0.8, model= "grok-4-1-fast-reasoning"):
     payload = {
         "messages": [{"role": "user", "content": prompt}],
         "search_parameters": {
-            "mode": "on",
+            "mode": "auto",
+            "max_search_results": 3,
         },
         "model": model,
         "temperature": temperature,
