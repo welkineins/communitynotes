@@ -49,6 +49,7 @@ def _worker(
     print("".join(log_strings) + "\n")
 
 
+def main(
     num_posts: int = 10,
     dry_run: bool = False,
     concurrency: int = 1,
