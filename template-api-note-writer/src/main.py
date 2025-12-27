@@ -49,10 +49,10 @@ def _worker(
     print("".join(log_strings) + "\n")
 
 
-def main(
     num_posts: int = 10,
     dry_run: bool = False,
     concurrency: int = 1,
+    test_mode: bool = True,
 ):
     """
     Get up to `num_posts` recent posts eligible for notes and write notes for them.
@@ -60,7 +60,9 @@ def main(
     """
 
     print(f"Getting up to {num_posts} recent posts eligible for notes")
-    eligible_posts: List[PostWithContext] = get_posts_eligible_for_notes(max_results=num_posts)
+    eligible_posts: List[PostWithContext] = get_posts_eligible_for_notes(
+        max_results=num_posts, test_mode=test_mode
+    )
     print(f"Found {len(eligible_posts)} recent posts eligible for notes")
     print(
         f"  Eligible Post IDs: {', '.join([str(post_with_context.post.post_id) for post_with_context in eligible_posts])}\n"
@@ -99,9 +101,22 @@ if __name__ == "__main__":
         default=1,
         help="Number of concurrent tasks to run",
     )
+    parser.add_argument(
+        "--test-mode",
+        action="store_true",
+        default=True,
+        help="Use test mode for the API (default: True)",
+    )
+    parser.add_argument(
+        "--no-test-mode",
+        action="store_false",
+        dest="test_mode",
+        help="Disable test mode for the API",
+    )
     args = parser.parse_args()
     main(
         num_posts=args.num_posts,
         dry_run=args.dry_run,
         concurrency=args.concurrency,
+        test_mode=args.test_mode,
     )
